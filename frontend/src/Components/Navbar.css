@@ -1,31 +1,83 @@
-    .button-login  {
-    border: none;
-    color: #fff;
-    background-image: linear-gradient(30deg, #423fee, #5382cd);
+/* Set the navbar background color to black */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: #000;
+    /* Black color */
+    padding: 10px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure the logo fits within the navbar */
+.logo {
+    max-height: 40px;
+    max-width: auto;
+}
+
+.navbar-menu {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar-item {
+    margin-right: 20px;
+}
+
+.navbar-item a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.navbar-item a:hover {
+    text-decoration: underline;
+}
+
+.auth-section {
+    display: flex;
+    align-items: center;
+}
+
+/* Login button styling */
+.button-login {
+    border: 1px solid white;
+    color: black;
+    background-color: white;
     border-radius: 20px;
-    background-size: 100% auto;
     font-family: inherit;
     font-size: 16px;
     padding: 0.6em 1.5em;
-   }
-   
-   .button-login:hover {
-    background-position: right center;
-    background-size: 200% auto;
-    -webkit-animation: pulse 2s infinite;
-    animation: pulse512 1.5s infinite;
-   }
-   
-   @keyframes pulse512 {
-    0% {
-     box-shadow: 0 0 0 0 #05bada66;
-    }
-   
-    70% {
-     box-shadow: 0 0 0 10px rgb(218 103 68 / 0%);
-    }
-   
-    100% {
-     box-shadow: 0 0 0 0 rgb(218 103 68 / 0%);
-    }
-   }
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-left: auto;
+}
+
+.button-login:hover {
+    background-color: black;
+    color: white;
+}
+
+/* Logout button styling */
+.button-logout {
+    border: 1px solid white;
+    color: white;
+    background-color: transparent;
+    border-radius: 20px;
+    font-family: inherit;
+    font-size: 16px;
+    padding: 0.6em 1.5em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.button-logout:hover {
+    background-color: white;
+    color: black;
+}

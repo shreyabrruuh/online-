@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'; // Import React, useState, and useEffect
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import cardImg from '../assets/card-img.jpeg';
+
 import { useAuth } from '../AuthContext';
 
 const Problems = () => {

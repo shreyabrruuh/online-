@@ -19,7 +19,7 @@ export const Authprovider = ({ children }) => {
       // Fetch the user data
       const fetchUserData = async () => {
         try {
-          const response = await axios.get('http://localhost:5174/user', {
+          const response = await axios.get('http://localhost:5179/user', {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`
             }
@@ -36,7 +36,7 @@ export const Authprovider = ({ children }) => {
     }
   }, [isAuthenticated]);
 
-  const API_URL = 'http://localhost:5174'; // Updated API URL
+  const API_URL = 'http://localhost:5179'; // Updated API URL
   const logout = async () => {
     try {
       await axios.post(`${API_URL}/logout`, {}, { withCredentials: true }); // Adjust the URL as needed

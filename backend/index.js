@@ -1,31 +1,32 @@
 import express from 'express';
-const app= express();
-import dotenv from "dotenv";
-dotenv.config();
-import cors from "cors";
-import DBConnection from './database/userdb.js';
-
+import dotenv from 'dotenv';
+import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import DBConnection from './database/userdb.js';
 import router from './routes/routes.js';
 import router2 from './routes/ContestRoutes.js';
-//middlewares
+
+dotenv.config();
+
+const app = express();
+
+// Middlewares
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
+
 const corsOptions = {
-    origin:[,'http://localhost:5000'], // Your frontend's origin
-    credentials: true, // Allow credentials (cookies, authorization headers, etc.)
-  };
-  
-  app.use(cors(corsOptions));
+  origin: 'http://localhost:5179', // Your frontend's origin
+  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+};
+
+app.use(cors(corsOptions));
 app.use(cookieParser());
-
-
 
 DBConnection();
 
-app.use('/',router);
-app.use('/',router2);
+app.use('/', router);
+app.use('/', router2);
 
-app.listen(8000, ()=>{
-    console.log('server is running on port 8000');
+app.listen(8000, () => {
+  console.log('Server is running on port 8000');
 });

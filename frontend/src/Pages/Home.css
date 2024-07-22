@@ -1,58 +1,43 @@
-.main-container{
-    width: 100%;
-  }
+.main-container {
+  position: relative;
+  background: url('../assets/code-typing-concept-illustration_114360-4296 copy.avif') no-repeat center center;
+  background-size: cover;
+  overflow: hidden;
+}
 
-  .cssbuttons-io-button {
-    background: #a370f0;
-    color: white;
-    font-family: inherit;
-    padding: 0.35em;
-    padding-left: 1.2em;
-    font-size: 17px;
-    font-weight: 500;
-    border-radius: 0.9em;
-    border: none;
-    letter-spacing: 0.05em;
-    display: flex;
-    align-items: center;
-    box-shadow: inset 0 0 1.6em -0.6em #714da6;
-    overflow: hidden;
-    position: relative;
-    height: 2.8em;
-    padding-right: 3.3em;
-    cursor: pointer;
-  }
-  
-  .cssbuttons-io-button .icon {
-    background: white;
-    margin-left: 1em;
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 2.2em;
-    width: 2.2em;
-    border-radius: 0.7em;
-    box-shadow: 0.1em 0.1em 0.6em 0.2em #7b52b9;
-    right: 0.3em;
-    transition: all 0.3s;
-  }
-  
-  .cssbuttons-io-button:hover .icon {
-    width: calc(100% - 0.6em);
-  }
-  
-  .cssbuttons-io-button .icon svg {
-    width: 1.1em;
-    transition: transform 0.3s;
-    color: #7b52b9;
-  }
-  
-  .cssbuttons-io-button:hover .icon svg {
-    transform: translateX(0.1em);
-  }
-  
-  .cssbuttons-io-button:active .icon {
-    transform: scale(0.95);
-  }
-  
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  filter: blur(8px);
+  opacity: 0.7;
+  /* Adjust opacity for more transparency */
+  z-index: -1;
+}
+
+.animated-text {
+  display: flex;
+  gap: 1rem;
+  color: black;
+  /* Ensure the animated text is black */
+}
+
+.get-started-btn {
+  transition: background-color 0.3s ease;
+}
+
+.get-started-btn:hover {
+  background-color: #2563eb;
+  /* Tailwind's blue-700 */
+}
+
+.text-center h1,
+.text-center p {
+  color: black;
+  /* Ensure the main text is black */
+  font-weight: 900;
+  /* Make text bolder */
+}

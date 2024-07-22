@@ -3,7 +3,7 @@ import axios from 'axios';
 import './Login.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { BiUser } from 'react-icons/bi';
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import { AiOutlineEye, AiOutlineEyeInvisible, AiOutlineUnlock } from 'react-icons/ai';
 import { useAuth } from '../AuthContext';
 
 const Login = () => {
@@ -13,9 +13,8 @@ const Login = () => {
     const navigate = useNavigate();
     const { login } = useAuth();
 
-    // Update API URLs
     const API_URL = {
-        frontend: 'http://localhost:5174',
+        frontend: 'http://localhost:5179',
         backend: 'http://localhost:8000'
     };
 
@@ -32,57 +31,51 @@ const Login = () => {
             navigate('/');
         } catch (err) {
             alert('User does not exist');
-            if (err.response) {
-                // Server responded with a status other than 200 range
-                console.log('Response data:', err.response.data);
-                console.log('Response status:', err.response.status);
-                console.log('Response headers:', err.response.headers);
-            } else if (err.request) {
-                // Request was made but no response was received
-                console.log('Request data:', err.request);
-            } else {
-                // Something happened in setting up the request that triggered an Error
-                console.log('Error message:', err.message);
-            }
-            console.log('Error config:', err.config);
+            console.error('Login error:', err);
         }
     };
 
     return (
-        <div className="m-container min-h-[99.9vh] flex justify-center items-center bg-cover">
-            <div className="wrapper text-white bg-slate-800 border border-slate-400 rounded-md p-8 shadow-lg backdrop-filter backdrop-blur-sm bg-opacity-30 relative">
-                <h1 className='text-whitefont-bold text-4xl text-center mb-6'>Login</h1>
-                <form action="" onSubmit={handleSubmit}>
-                    <div className='relative my-4 pb-2'>
-                        <input type="email" onChange={(e) => setEmail(e.target.value)} className='block w-72 py-2.3 px-0 text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:text-white focus:border-blue-600 peer' placeholder='' />
-                        <label htmlFor="" className='absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:tranlate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'>Your Email</label>
-                        <BiUser className='absolute top-0 right-4' />
+        <div className="login-container">
+            <div className="login-form">
+                <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">Login</h1>
+                <form onSubmit={handleSubmit}>
+                    <div className="relative mb-6">
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="input-field"
+                            placeholder="Your Email"
+                        />
+                        <BiUser className="absolute top-1/2 transform -translate-y-1/2 right-4 text-gray-400" />
                     </div>
-                    <div className='relative my-4'>
-                        <input type={showPassword ? "text" : "password"} onChange={(e) => setPassword(e.target.value)} className='block w-72 py-2.3 px-0 text-sm text-white bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0  focus:text-white focus:border-blue-600 peer' placeholder='' />
-                        <label htmlFor="" className='absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:tranlate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6'>Your Password</label>
+                    <div className="relative mb-6">
+                        <input
+                            type={showPassword ? "text" : "password"}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="input-field"
+                            placeholder="Your Password"
+                        />
                         <span
-                            className="absolute right-3 top-[0] cursor-pointer"
+                            className="absolute top-1/2 transform -translate-y-1/2 right-4 text-gray-400 cursor-pointer"
                             onClick={() => setShowPassword((prev) => !prev)}
                         >
-                            {showPassword ? (
-                                <AiOutlineEyeInvisible fontSize={24} fill="#AFB2BF" />
-                            ) : (
-                                <AiOutlineEye fontSize={24} fill="#AFB2BF" />
-                            )}
+                            {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
                         </span>
                     </div>
-                    <div className='flex justify-between items-center'>
-                        <div className='flex gap-2 items-center'>
-                            <input type="checkbox" />
-                            <label htmlFor="Remember me">Remember me</label>
+                    <div className="flex justify-between items-center mb-6">
+                        <div className="flex items-center">
+                            <input type="checkbox" id="rememberMe" className="mr-2" />
+                            <label htmlFor="rememberMe" className="text-sm text-gray-600">Remember me</label>
                         </div>
-                        <Link to='/forgot-pass' className='text-blue-600'>Forgot Password?</Link>
+                        <Link to='/forgot-pass' className="text-sm text-blue-600">Forgot Password?</Link>
                     </div>
-                    <button className='w-full mb-4 text-[18px] mt-6 rounded-full bg-white text-emerald-800 hover:bg-emerald-600 hover:text-white py-2' type='submit'>Sign In</button>
-                    <div>
-                        <span className='m-4'>New Here? <Link className='text-blue-600' to='/register'>Create your Account</Link></span>
-                    </div>
+                    <button type="submit" className="btn-primary">Sign In</button>
+                    <p className="mt-4 text-sm text-gray-600 text-center">
+                        New Here? <Link to="/register" className="text-blue-600">Create your Account</Link>
+                    </p>
                 </form>
             </div>
         </div>

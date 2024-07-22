@@ -42,7 +42,7 @@ const Prob_editor = () => {
   useEffect(() => {
     const fetchCode = async () => {
       try {
-        const response = await axios.get(`http://localhost:5174/code/get/${id}`);
+        const response = await axios.get(`http://localhost:5179/code/get/${id}`);
         if (response.data.code) {
           setCode(response.data.code);
         } else {
@@ -58,7 +58,7 @@ const Prob_editor = () => {
         if (!id) {
           throw new Error('Problem ID is undefined');
         }
-        const response = await axios.get(`http://localhost:5174/problem/${id}`);
+        const response = await axios.get(`http://localhost:5179/problem/${id}`);
         const problemData = response.data;
         setProblem(problemData);
         setTestCases(response.data.TestCases);
@@ -81,7 +81,7 @@ const Prob_editor = () => {
   useEffect(() => {
     const saveCode = async () => {
       try {
-        await axios.post('http://localhost:5174/code/save', {
+        await axios.post('http://localhost:5179/code/save', {
           id,
           code
         });
@@ -102,7 +102,7 @@ const Prob_editor = () => {
     console.log('handleRun called');
     const payload = { language, code, input };
     try {
-      const { data } = await axios.post(`http://localhost:5174/compile`, payload);
+      const { data } = await axios.post(`http://localhost:5179/compile`, payload);
       console.log(data);
       setOutput(data.output1);
     } catch (error) {
@@ -121,7 +121,7 @@ const Prob_editor = () => {
       count: submissionCount
     };
     try {
-      const { data } = await axios.post(`http://localhost:5174/submission`, payload);
+      const { data } = await axios.post(`http://localhost:5179/submission`, payload);
       console.log("Count:", data.count);
       setSubmissionCount(prevCount => prevCount + 1);
     } catch (error) {
@@ -133,7 +133,7 @@ const Prob_editor = () => {
     console.log('handleSubmit called');
     const payload = { userId: user, problemId: id, language, code };
     try {
-      const { data } = await axios.post(`http://localhost:5174/submit`, payload);
+      const { data } = await axios.post(`http://localhost:5179/submit`, payload);
       console.log(data);
       setVerdict(data.verdict);
       setTestCaseResults(data.results);
@@ -145,7 +145,7 @@ const Prob_editor = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5174/problem/${id}`);
+      await axios.delete(`http://localhost:5179/problem/${id}`);
       alert('Problem deleted successfully');
       navigate('/problems');
     } catch (error) {

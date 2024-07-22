@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const AddContestProblem = (/*{ isLoggedIn }*/) => {
+const AddContestProblem = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [level, setLevel] = useState("Easy");
@@ -8,6 +8,7 @@ const AddContestProblem = (/*{ isLoggedIn }*/) => {
   const [constraints, setConstraints] = useState("");
   const [testCases, setTestCases] = useState([{ input: "", output: "" }]);
   const [topics, setTopics] = useState([]);
+
   const handleTestCaseChange = (index, event) => {
     const newTestCases = testCases.map((testCase, i) =>
       i === index
@@ -16,6 +17,7 @@ const AddContestProblem = (/*{ isLoggedIn }*/) => {
     );
     setTestCases(newTestCases);
   };
+
   const handleExampleChange = (index, field, value) => {
     const newExamples = [...examples];
     newExamples[index][field] = value;
@@ -25,8 +27,9 @@ const AddContestProblem = (/*{ isLoggedIn }*/) => {
   const addTestCase = () => {
     setTestCases([...testCases, { input: "", output: "" }]);
   };
+
   const addExample = () => {
-    setExamples([...examples, { inputExapmle: '', outputExample: '' }]);
+    setExamples([...examples, { inputExample: '', outputExample: '' }]);
   };
 
   const handleSubmit = async (event) => {
@@ -43,7 +46,7 @@ const AddContestProblem = (/*{ isLoggedIn }*/) => {
 
     try {
       const response = await fetch(
-        `https://online-judge-qmoq.onrender.com/addContestProblem`,
+        `http://localhost:5179/addContestProblem`,
         {
           method: "POST",
           headers: {
@@ -64,25 +67,20 @@ const AddContestProblem = (/*{ isLoggedIn }*/) => {
         setTestCases([{ input: "", output: "" }]);
         setTopics([]);
       } else {
-        console.log("cant add0");
         alert("Error adding problem");
       }
     } catch (error) {
-      console.log("cant add");
+      console.log("Error:", error);
       alert("Error adding problem");
     }
   };
-  /*
-  if (!isLoggedIn) {
-    return <p className="text-yellow-400">Please log in to add a problem.</p>;
-  }*/
 
   return (
     <form
       onSubmit={handleSubmit}
       className="mx-auto mt-11 w-6/12 p-6 bg-yellow-100 shadow-lg rounded-lg"
     >
-      <h1 className="text-3xl  font-bold mb-6 text-center text-blue-600">
+      <h1 className="text-3xl font-bold mb-6 text-center text-blue-600">
         Add New Problem
       </h1>
       <div className="mb-4">
@@ -109,7 +107,6 @@ const AddContestProblem = (/*{ isLoggedIn }*/) => {
           required
         />
       </div>
-
       <div className="mb-4">
         <label className="block text-sm font-medium text-gray-700">
           Topics
@@ -124,9 +121,7 @@ const AddContestProblem = (/*{ isLoggedIn }*/) => {
         />
       </div>
       <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700">
-          Level
-        </label>
+        <label className="block text-sm font-medium text-gray-700">Level</label>
         <select
           value={level}
           onChange={(e) => setLevel(e.target.value)}
@@ -138,33 +133,31 @@ const AddContestProblem = (/*{ isLoggedIn }*/) => {
         </select>
       </div>
       <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Examples</label>
-          {examples.map((example, index) => (
-            <div key={index} className="mb-2">
-              <input
-                type="text"
-                placeholder="InputExample"
-                className="mt-1 block w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                value={example.inputExample}
-                onChange={(e) => handleExampleChange(index, 'inputExample', e.target.value)}
-              />
-              <input
-                type="text"
-                placeholder="OutputExample"
-                className="mt-1 block w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                value={example.outputExample}
-                onChange={(e) => handleExampleChange(index, 'outputExample', e.target.value)}
-              />
-            </div>
-          ))}
-          <button type="button" className="bg-blue-500 text-white p-2 rounded" onClick={addExample}>
-            Add Example
-          </button>
-        </div>
+        <label className="block text-sm font-medium text-gray-700">Examples</label>
+        {examples.map((example, index) => (
+          <div key={index} className="mb-2">
+            <input
+              type="text"
+              placeholder="InputExample"
+              className="mt-1 block w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={example.inputExample}
+              onChange={(e) => handleExampleChange(index, 'inputExample', e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="OutputExample"
+              className="mt-1 block w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={example.outputExample}
+              onChange={(e) => handleExampleChange(index, 'outputExample', e.target.value)}
+            />
+          </div>
+        ))}
+        <button type="button" className="bg-blue-500 text-white p-2 rounded" onClick={addExample}>
+          Add Example
+        </button>
+      </div>
       <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700">
-          Constraints
-        </label>
+        <label className="block text-sm font-medium text-gray-700">Constraints</label>
         <textarea
           value={constraints}
           onChange={(e) => setConstraints(e.target.value)}
@@ -175,9 +168,7 @@ const AddContestProblem = (/*{ isLoggedIn }*/) => {
         />
       </div>
       <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700">
-          Test Cases
-        </label>
+        <label className="block text-sm font-medium text-gray-700">Test Cases</label>
         {testCases.map((testCase, index) => (
           <div
             key={index}
@@ -213,10 +204,12 @@ const AddContestProblem = (/*{ isLoggedIn }*/) => {
       </div>
       <button
         type="submit"
-        className="mt-4 px-4 py-2 bg-green-500  text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
         Add Problem
       </button>
     </form>
   );
 };
+
+export default AddContestProblem;
